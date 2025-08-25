@@ -1,0 +1,6 @@
+# No external dependencies required for basic functionality
+# All code uses Python standard library only
+
+# Optional: For enhanced web server functionality (if needed)
+# flask==2.3.3
+# requests==2.31.0

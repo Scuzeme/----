@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Subscription</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .subscription-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+        }
+
+        .subscription-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .subscription-info p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 25px;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .warning-box p {
+            color: #856404;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-cancel {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-1px);
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #155724;
+        }
+
+        .success-message h3 {
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Cancel Subscription</h1>
+            <p>We're sorry to see you go</p>
+        </div>
+
+        <div class="content">
+            <div id="cancel-form">
+                <div class="subscription-info">
+                    <h3>Current Subscription</h3>
+                    <p><strong>Plan:</strong> <span id="current-plan">Premium Plan</span></p>
+                    <p><strong>Next billing date:</strong> <span id="next-billing">January 15, 2024</span></p>
+                    <p><strong>Monthly cost:</strong> <span id="monthly-cost">$19.99</span></p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>⚠️ Important Information</h4>
+                    <p>Your subscription will remain active until the end of your current billing period. After cancellation, you'll lose access to premium features but can reactivate anytime.</p>
+                </div>
+
+                <form id="cancellation-form">
+                    <div class="form-group">
+                        <label for="subscription-id">Subscription ID</label>
+                        <input type="text" id="subscription-id" name="subscription-id" placeholder="Enter your subscription ID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cancellation-reason">Reason for cancellation (optional)</label>
+                        <select id="cancellation-reason" name="cancellation-reason">
+                            <option value="">Select a reason...</option>
+                            <option value="too-expensive">Too expensive</option>
+                            <option value="not-using">Not using the service</option>
+                            <option value="found-alternative">Found a better alternative</option>
+                            <option value="technical-issues">Technical issues</option>
+                            <option value="temporary">Temporary cancellation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="other-reason-group" style="display: none;">
+                        <label for="other-reason">Please specify</label>
+                        <textarea id="other-reason" name="other-reason" placeholder="Tell us more about your reason for cancelling..."></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="goBack()">Keep Subscription</button>
+                        <button type="submit" class="btn btn-cancel">Cancel Subscription</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="success-message" class="success-message">
+                <h3>✅ Subscription Cancelled Successfully</h3>
+                <p>Your subscription has been cancelled. You'll continue to have access until <span id="access-until"></span>.</p>
+                <p>Thank you for being a valued customer!</p>
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-secondary" onclick="window.close()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show/hide other reason textarea
+        document.getElementById('cancellation-reason').addEventListener('change', function() {
+            const otherReasonGroup = document.getElementById('other-reason-group');
+            if (this.value === 'other') {
+                otherReasonGroup.style.display = 'block';
+            } else {
+                otherReasonGroup.style.display = 'none';
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('cancellation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const subscriptionId = document.getElementById('subscription-id').value;
+            const reason = document.getElementById('cancellation-reason').value;
+            const otherReason = document.getElementById('other-reason').value;
+            
+            if (!subscriptionId.trim()) {
+                alert('Please enter your subscription ID');
+                return;
+            }
+
+            // Simulate API call to cancel subscription
+            cancelSubscription(subscriptionId, reason, otherReason);
+        });
+
+        function cancelSubscription(subscriptionId, reason, otherReason) {
+            // Show loading state
+            const submitBtn = document.querySelector('.btn-cancel');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Cancelling...';
+            submitBtn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Hide form and show success message
+                document.getElementById('cancel-form').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                
+                // Set access until date (simulate end of billing period)
+                const nextBilling = new Date();
+                nextBilling.setMonth(nextBilling.getMonth() + 1);
+                document.getElementById('access-until').textContent = nextBilling.toLocaleDateString();
+
+                // Log cancellation details (in real app, this would be sent to server)
+                console.log('Subscription cancelled:', {
+                    subscriptionId: subscriptionId,
+                    reason: reason === 'other' ? otherReason : reason,
+                    cancelledAt: new Date().toISOString()
+                });
+
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        function goBack() {
+            if (confirm('Are you sure you want to keep your subscription?')) {
+                window.history.back();
+            }
+        }
+
+        // Simulate loading current subscription data
+        window.addEventListener('load', function() {
+            // In a real app, this would fetch actual subscription data
+            const urlParams = new URLSearchParams(window.location.search);
+            const subId = urlParams.get('sub_id');
+            
+            if (subId) {
+                document.getElementById('subscription-id').value = subId;
+            }
+        });
+    </script>
+</body>
+</html>
