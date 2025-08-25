@@ -1,0 +1,32 @@
+[
+  {
+    "id": "sub_user_001_20250825_210335",
+    "user_id": "user_001",
+    "plan": "premium",
+    "status": "cancelled",
+    "created_at": "2025-08-25T21:03:35.720230",
+    "expires_at": "2025-09-24T21:03:35.720230",
+    "cancelled_at": "2025-08-25T21:03:35.720282",
+    "cancellation_reason": "User requested cancellation via demo"
+  },
+  {
+    "id": "sub_user_002_20250825_210335",
+    "user_id": "user_002",
+    "plan": "basic",
+    "status": "active",
+    "created_at": "2025-08-25T21:03:35.720258",
+    "expires_at": "2025-09-24T21:03:35.720258",
+    "cancelled_at": null,
+    "cancellation_reason": null
+  },
+  {
+    "id": "sub_user_003_20250825_210335",
+    "user_id": "user_003",
+    "plan": "enterprise",
+    "status": "active",
+    "created_at": "2025-08-25T21:03:35.720265",
+    "expires_at": "2026-08-25T21:03:35.720265",
+    "cancelled_at": null,
+    "cancellation_reason": null
+  }
+]
